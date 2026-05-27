@@ -161,7 +161,7 @@ export default function Home() {
 
                             {/* Attribute tags — like "AROMATIC · CITRUSY · EARTHY" */}
                             <div className="flex gap-0 text-xs font-black tracking-widest uppercase" style={{ color: C.gold }}>
-                                {["City Themes", "Type-Safe APIs", "Analytics"].map((tag, i) => (
+                                {["City Themes", "Easy Sharing", "Analytics"].map((tag, i) => (
                                     <span key={tag} className="flex items-center gap-0">
                                         {i > 0 && <span className="mx-3" style={{ color: `${C.gold}50` }}>|</span>}
                                         <span>{tag}</span>

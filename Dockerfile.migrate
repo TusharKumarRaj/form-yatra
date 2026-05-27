@@ -19,4 +19,6 @@ COPY packages/database/ ./packages/database/
 WORKDIR /app/packages/database
 
 # Run drizzle-kit migrate directly (DATABASE_URL is passed as an env var by docker-compose)
-CMD ["pnpm", "exec", "drizzle-kit", "migrate"]
+# Run drizzle-kit push (non-interactive, applies schema changes directly)
+CMD ["pnpm", "exec", "drizzle-kit", "push", "--force"]
+

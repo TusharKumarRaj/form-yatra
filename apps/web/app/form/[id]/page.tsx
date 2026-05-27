@@ -112,7 +112,8 @@ export default function PublicFormPage() {
         // Validate required fields
         const errors: Record<string, string> = {};
         for (const f of form.fields) {
-            if (f.isRequired && (!values[f.id] || values[f.id].trim() === "")) {
+            const val = values[f.id];
+            if (f.isRequired && (!val || val.trim() === "")) {
                 errors[f.id] = "This field is required.";
             }
         }

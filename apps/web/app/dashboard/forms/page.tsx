@@ -608,21 +608,11 @@ export default function DashboardForms() {
                         className="rounded-xl"
                     />
                     <p className="text-xs font-medium text-center break-all" style={{ color: `${T.cream}60` }}>{qrUrl}</p>
-                    <div className="flex gap-3 w-full">
-                        <a
-                            href={`https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(qrUrl)}&bgcolor=1d5c3a&color=e8a020&format=png`}
-                            download="formyatra-qr.png"
-                            target="_blank"
-                            rel="noreferrer"
-                            className="flex-1 py-2.5 rounded-lg font-black text-xs uppercase tracking-widest text-center transition-opacity hover:opacity-80"
-                            style={{ background: T.border, color: BASE.ink }}
-                        >
-                            Download
-                        </a>
+                    <div className="flex w-full">
                         <button
                             onClick={() => setQrOpen(null)}
                             className="flex-1 py-2.5 rounded-lg font-black text-xs uppercase tracking-widest transition-opacity hover:opacity-80"
-                            style={{ border: `1.5px solid ${T.border}40`, color: T.cream }}
+                            style={{ border: `1.5px solid ${T.border}40`, color: T.cream, background: `${T.border}10` }}
                         >
                             Close
                         </button>

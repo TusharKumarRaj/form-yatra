@@ -1,4 +1,6 @@
+import { z } from "zod";
 import { authenticatedProcedure, publicProcedure, router } from "../../trpc";
+
 import {
     createUserWithEmailAndPasswordInputModel,
     createUserWithEmailAndPasswordOutputModel,
@@ -92,5 +94,24 @@ export const authRouter = router({
                 fullName,
                 email,
             };
+        }),
+    logout: publicProcedure
+        .meta({
+            openapi: {
+                method: "POST",
+                path: getPath("/logout"),
+                tags: TAGS,
+            },
+        })
+        .input(z.object({}))
+        .output(z.object({ success: z.boolean() }))
+        .mutation(async ({ ctx }) => {
+            ctx.setCookie("token", "", {
+                httpOnly: true,
+                secure: false,
+                sameSite: "strict",
+                maxAge: 0,
+            });
+            return { success: true };
         }),
 });

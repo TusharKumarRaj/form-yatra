@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 import { useCreateForm, useListForms, useUpdateForm, useDeleteForm, useCloneForm } from "~/hooks/api/form";
+import { useLogout } from "~/hooks/api/auth";
 import logoImg from "~/assets/form-yatra-logo.png";
 import mumbaiImg from "~/assets/mumbai.png";
 import { themes, PATTERN_TILE, getFolkPatternSvg, BASE } from "~/lib/theme";
@@ -81,6 +82,7 @@ type InitialField = {
 
 export default function DashboardForms() {
     const router = useRouter();
+    const { logoutAsync } = useLogout();
     const [open, setOpen] = useState(false);
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
@@ -184,7 +186,10 @@ export default function DashboardForms() {
                             Explore
                         </Link>
                         <button
-                            onClick={() => router.push("/signin")}
+                            onClick={async () => {
+                                await logoutAsync({});
+                                router.push("/");
+                            }}
                             className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider transition-colors hover:opacity-80"
                             style={{ color: T.cream }}
                         >

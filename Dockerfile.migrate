@@ -1,0 +1,22 @@
+FROM node:20-alpine
+
+# Setup pnpm
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable pnpm && corepack prepare pnpm@9.0.0 --activate
+
+WORKDIR /app
+
+# Copy only what's needed for the database package
+COPY pnpm-lock.yaml pnpm-workspace.yaml turbo.json ./
+COPY packages/database/package.json ./packages/database/package.json
+COPY package.json ./package.json
+
+RUN pnpm install --frozen-lockfile
+
+COPY packages/database/ ./packages/database/
+
+WORKDIR /app/packages/database
+
+# Run drizzle-kit migrate directly (DATABASE_URL is passed as an env var by docker-compose)
+CMD ["pnpm", "exec", "drizzle-kit", "migrate"]

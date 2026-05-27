@@ -19,6 +19,18 @@ services:
       timeout: 5s
       retries: 5
 
+  migrate:
+    build:
+      context: .
+      dockerfile: Dockerfile.migrate
+    container_name: formyatra_migrate
+    environment:
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-password123}@db:5432/${POSTGRES_DB:-formyatra}
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: on-failure
+
   api:
     build:
       context: .
@@ -36,6 +48,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
 
   web:
     build:

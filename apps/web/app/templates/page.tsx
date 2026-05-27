@@ -19,6 +19,10 @@ const folkPatternStyle = {
     backgroundPosition: "0 0",
 };
 
+function FolkPatternStrip() {
+    return <div className="w-full shrink-0 overflow-hidden" style={{ ...folkPatternStyle, height: PATTERN_TILE }} aria-hidden />;
+}
+
 const TEMPLATES = [
     {
         id: "startup-feedback",
